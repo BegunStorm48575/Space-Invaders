@@ -1,5 +1,7 @@
 import pygame
 import random
+
+from alien import Alien
  # initialize the pygame
 pygame.init()
 
@@ -17,31 +19,32 @@ playerY = 480
 
 playerX_change = 0
 
-enemyImg = pygame.image.load("alien-pixelated-shape-of-a-digital-game.png")
+alienImg = pygame.image.load("alien-pixelated-shape-of-a-digital-game.png")
 
-enemyX = random.randint(0,800)
-enemyY = random.randint(50,150)
+alienX = random.randint(0,800)
+alienY = random.randint(50,150)
 
-enemyX_change = 0.2
-enemyY_change = 100
+alienX_change = 0.2
+alienY_change = 10
 
 
 def enemy (x, y):
-     screen.blit(enemyImg, (x, y))
+     screen.blit(alienImg, (x, y))
 
 def player (x, y):
      screen.blit(playerImg, (x, y))
 
 # game loop
 running = True
-
 while running:
     screen.fill((77, 66, 66))
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    
+    #player boundary logic
+
+
+
     #Handles the key down event
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
@@ -58,15 +61,15 @@ while running:
     playerX += playerX_change
     player(playerX, playerY)
 
-    enemyX += enemyX_change
-    if enemyX <=0:
-        enemyY_change +=0.2
-        enemyY += enemyY_change
-    elif enemyX >= 736:
-        enemyX_change = -0.2
-        enemyY += enemyY_change
+    alienX += alienX_change
+    if alienX <=0:
+        alienX_change = 0.2
+        alienY += alienY_change
+    elif alienX >= 736:
+        alienX_change = -0.2
+        alienY += alienY_change
     
-    enemy(enemyX, enemyY)
+    Alien(alienX, alienY)
     
 
     # update screen
